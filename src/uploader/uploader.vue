@@ -85,13 +85,11 @@ export default {
       xhr.send(formData)
       xhr.onload = () => {
         if (xhr.status === 200 || xhr.status === 304) {
-          let datas = JSON.parse(xhr.responseText)
+          let datas = xhr.responseText
           console.log('response: ', datas)
           // 存储返回的地址
-          let imgUrlPaths = []
-          datas.forEach(e => { // error === 0为成功状态
-            e.error === 0 && imgUrlPaths.push(e.url)
-          })
+          let imgUrlPaths = [datas]
+         
           this.$store.commit('set_img_paths', imgUrlPaths) // 存储返回的地址
           this.files = [] // 清空文件缓存
           this.index = 0 // 初始化序列号
